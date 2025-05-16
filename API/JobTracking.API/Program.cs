@@ -1,4 +1,3 @@
-
 namespace JobTracking.API
 {
     public class Program
