@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobTracking.DataAccess\JobTracking.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

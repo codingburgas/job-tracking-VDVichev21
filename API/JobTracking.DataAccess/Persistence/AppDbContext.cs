@@ -16,4 +16,6 @@ public class AppDbContext : DbContext
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=JobTracker;Trusted_Connection=true;");
         }
     }
+
+    public AppDbContext Db { get; set; }
 }
