@@ -1,3 +1,7 @@
+using JobTracking.API.Controllers;
+using JobTracking.DataAccess;
+using Microsoft.EntityFrameworkCore;
+
 namespace JobTracking.API
 {
     public class Program
@@ -6,7 +10,6 @@ namespace JobTracking.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.AddContext();
             builder.AddIdentity();
             builder.AddCors();
@@ -19,20 +22,11 @@ namespace JobTracking.API
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
-
             app.Run();
         }
     }

@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using JobTracking.DataAccess.Data.Base;
 
 namespace JobTracking.DataAccess.Data.Models;
 
@@ -15,3 +14,4 @@ public class Example : IEntity
     
     public virtual ICollection<Model> Models { get; set; } = new List<Model>();
 }
+

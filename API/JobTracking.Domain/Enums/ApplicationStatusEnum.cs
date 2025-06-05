@@ -1,8 +1,6 @@
-﻿namespace JobTracking.Domain.Enums;
-
-public enum ApplicationStatusEnum
+﻿public enum ApplicationStatusEnum
 {
-    SUBMITTED,
-    APPROVED,
-    REJECTED
+    Pending,
+    Approved,
+    Rejected
 }

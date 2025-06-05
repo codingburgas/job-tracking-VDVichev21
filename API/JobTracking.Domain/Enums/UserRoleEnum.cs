@@ -1,7 +1,5 @@
-﻿namespace JobTracking.Domain.Enums;
-
-public enum UserRoleEnum
+﻿public enum UserRoleEnum
 {
-    USER,
-    ADMIN
+    Admin,
+    JobSeeker
 }
