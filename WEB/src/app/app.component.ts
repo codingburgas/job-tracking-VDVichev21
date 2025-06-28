@@ -1,15 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
-    selector: 'app-root',
-    imports: [CommonModule, RouterOutlet, TranslateModule],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
-    standalone: true,
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, HeaderComponent],
+  template: `
+    <div class="min-vh-100 bg-light">
+      <app-header></app-header>
+      <main class="container-fluid py-4">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  `,
+  styles: [`
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  `]
 })
 export class AppComponent {
-  title = 'job-training';
+  title = 'Jobber';
 }
