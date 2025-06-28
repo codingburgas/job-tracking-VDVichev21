@@ -12,6 +12,22 @@ import { JobPosting } from '../../models/job.model';
   imports: [CommonModule, RouterModule, FormsModule],
   template: `
     <div class="container-fluid">
+      <!-- Debug Info -->
+      <div class="alert alert-info mb-3" *ngIf="showDebugInfo">
+        <strong>Debug Info:</strong><br>
+        - API URL: http://localhost:5000/api/jobpostings<br>
+        - Loading: {{ loading }}<br>
+        - Error: {{ errorMessage || 'None' }}<br>
+        - Jobs Count: {{ jobs.length }}<br>
+        - Filtered Jobs: {{ filteredJobs.length }}<br>
+        - User Role: {{ getCurrentUserRole() }}<br>
+        <button (click)="showDebugInfo = false" class="btn btn-sm btn-outline-secondary mt-2">Hide Debug</button>
+      </div>
+
+      <button *ngIf="!showDebugInfo" (click)="showDebugInfo = true" class="btn btn-sm btn-outline-info mb-3">
+        Show Debug Info
+      </button>
+
       <!-- Simple Header -->
       <div class="row mb-4">
         <div class="col-12">
@@ -78,10 +94,19 @@ import { JobPosting } from '../../models/job.model';
       <!-- Error -->
       <div *ngIf="errorMessage" class="row">
         <div class="col-12">
-          <div class="alert alert-danger text-center">
-            <strong>Error:</strong> {{ errorMessage }}
-            <br>
-            <button (click)="loadJobs()" class="btn btn-primary mt-2">Try Again</button>
+          <div class="alert alert-danger">
+            <h5>❌ Error Loading Jobs</h5>
+            <p><strong>{{ errorMessage }}</strong></p>
+            <hr>
+            <h6>Troubleshooting Steps:</h6>
+            <ol>
+              <li>Make sure the API server is running on <code>http://localhost:5000</code></li>
+              <li>Check if you can access <a href="http://localhost:5000/api/jobpostings" target="_blank">http://localhost:5000/api/jobpostings</a> directly</li>
+              <li>Verify CORS is enabled in the API</li>
+              <li>Check browser console for additional errors</li>
+            </ol>
+            <button (click)="loadJobs()" class="btn btn-primary">🔄 Try Again</button>
+            <button (click)="testApiConnection()" class="btn btn-outline-info ms-2">🔍 Test API</button>
           </div>
         </div>
       </div>
@@ -90,10 +115,15 @@ import { JobPosting } from '../../models/job.model';
       <div *ngIf="!loading && !errorMessage && filteredJobs.length === 0 && jobs.length === 0" class="row">
         <div class="col-12">
           <div class="text-center py-5">
-            <h3>No Jobs Available</h3>
-            <p class="text-muted">Check back later for new opportunities!</p>
+            <h3>📭 No Jobs Available</h3>
+            <p class="text-muted">There are no job postings at the moment.</p>
             <div *ngIf="isAdmin()">
-              <a routerLink="/admin/jobs/new" class="btn btn-primary">Post First Job</a>
+              <p class="text-muted">As an admin, you can create the first job posting.</p>
+              <a routerLink="/admin/jobs/new" class="btn btn-primary">➕ Post First Job</a>
+            </div>
+            <div *ngIf="!isAdmin() && !isLoggedIn()">
+              <p class="text-muted">Please login to see available jobs.</p>
+              <a routerLink="/login" class="btn btn-primary">🔑 Login</a>
             </div>
           </div>
         </div>
@@ -103,9 +133,9 @@ import { JobPosting } from '../../models/job.model';
       <div *ngIf="!loading && !errorMessage && filteredJobs.length === 0 && jobs.length > 0" class="row">
         <div class="col-12">
           <div class="text-center py-5">
-            <h3>No Results Found</h3>
-            <p class="text-muted">Try different search terms.</p>
-            <button (click)="clearFilters()" class="btn btn-primary">Clear Filters</button>
+            <h3>🔍 No Results Found</h3>
+            <p class="text-muted">No jobs match your search criteria.</p>
+            <button (click)="clearFilters()" class="btn btn-primary">🗑️ Clear Filters</button>
           </div>
         </div>
       </div>
@@ -154,6 +184,12 @@ import { JobPosting } from '../../models/job.model';
     .card:hover {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
+    code {
+      background-color: #f8f9fa;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-size: 0.875em;
+    }
   `]
 })
 export class JobListComponent implements OnInit {
@@ -163,6 +199,7 @@ export class JobListComponent implements OnInit {
   errorMessage = '';
   searchTerm = '';
   selectedStatus = '';
+  showDebugInfo = false;
 
   constructor(
       private jobService: JobService,
@@ -171,25 +208,49 @@ export class JobListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('🚀 JobListComponent initialized');
+    console.log('👤 Current user:', this.authService.currentUserValue);
+    console.log('🔑 Is logged in:', this.authService.isLoggedIn());
+    console.log('👑 Is admin:', this.authService.isAdmin());
     this.loadJobs();
   }
 
   loadJobs(): void {
+    console.log('🔄 Starting to load jobs...');
     this.loading = true;
     this.errorMessage = '';
 
     this.jobService.getJobs().subscribe({
       next: (jobs) => {
+        console.log('✅ Jobs loaded successfully:', jobs);
         this.jobs = jobs;
         this.filteredJobs = [...jobs];
         this.loading = false;
         this.filterJobs();
       },
       error: (error) => {
+        console.error('❌ Error loading jobs:', error);
         this.errorMessage = error.message || 'Failed to load jobs.';
         this.loading = false;
       }
     });
+  }
+
+  testApiConnection(): void {
+    console.log('🔍 Testing API connection...');
+    fetch('http://localhost:5000/api/jobpostings')
+        .then(response => {
+          console.log('🌐 API Response Status:', response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log('📊 API Response Data:', data);
+          alert('✅ API Connection Successful! Check console for details.');
+        })
+        .catch(error => {
+          console.error('❌ API Connection Failed:', error);
+          alert('❌ API Connection Failed! Check console for details.');
+        });
   }
 
   filterJobs(): void {
@@ -209,6 +270,7 @@ export class JobListComponent implements OnInit {
     }
 
     this.filteredJobs = filtered;
+    console.log('🔍 Filtered jobs:', this.filteredJobs.length, 'out of', this.jobs.length);
   }
 
   clearFilters(): void {
@@ -231,5 +293,14 @@ export class JobListComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authService.isAdmin();
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  getCurrentUserRole(): string {
+    const user = this.authService.currentUserValue;
+    return user ? user.role : 'Not logged in';
   }
 }
