@@ -1,17 +1,34 @@
+import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { routes } from './app.routes';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
-import { AppComponent } from './app/app.component';
-import { routes } from './app/app.routes';
-import { authInterceptor } from './app/interceptors/auth.interceptor';
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet],
+  template: '<router-outlet></router-outlet>'
+})
+export class App {}
 
-bootstrapApplication(AppComponent, {
+bootstrapApplication(App, {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([authInterceptor])),
-    importProvidersFrom(ReactiveFormsModule)
+    provideHttpClient(withInterceptors([
+      (req, next) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const authReq = req.clone({
+            headers: req.headers.set('Authorization', `Bearer ${token}`)
+          });
+          return next(authReq);
+        }
+        return next(req);
+      }
+    ]))
   ]
 });
