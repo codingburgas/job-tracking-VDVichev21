@@ -17,7 +17,6 @@ public class JobDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // User configuration
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -29,7 +28,6 @@ public class JobDbContext : DbContext
             entity.HasIndex(e => e.Username).IsUnique();
         });
 
-        // JobPosting configuration
         modelBuilder.Entity<JobPosting>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -43,7 +41,6 @@ public class JobDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict);
         });
 
-        // Application configuration
         modelBuilder.Entity<Application>(entity =>
         {
             entity.HasKey(e => e.Id);
@@ -58,17 +55,14 @@ public class JobDbContext : DbContext
                 .HasForeignKey(e => e.JobPostingId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Ensure one application per user per job
             entity.HasIndex(e => new { e.UserId, e.JobPostingId }).IsUnique();
         });
 
-        // Seed data
         SeedData(modelBuilder);
     }
 
     private void SeedData(ModelBuilder modelBuilder)
     {
-        // Seed admin user
         modelBuilder.Entity<User>().HasData(
             new User
             {
@@ -82,7 +76,6 @@ public class JobDbContext : DbContext
             }
         );
 
-        // Seed some sample job postings
         modelBuilder.Entity<JobPosting>().HasData(
             new JobPosting
             {

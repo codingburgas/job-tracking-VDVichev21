@@ -10,6 +10,7 @@
         "dependencies": {
           "Job.Application": "1.0.0",
           "Job.DataAccess": "1.0.0",
+          "Job.Domain": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "8.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.0",

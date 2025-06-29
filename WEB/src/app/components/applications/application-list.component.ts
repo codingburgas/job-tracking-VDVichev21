@@ -9,100 +9,73 @@ import { Application } from '../../models/application.model';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <div class="application-list-container">
-      <h1 class="mb-6">My Applications</h1>
-
-      <div *ngIf="loading" class="text-center">
-        <div class="spinner"></div>
-        <p>Loading applications...</p>
+    <div class="container-fluid">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="bg-primary text-white p-4 rounded">
+            <h1 class="h2 mb-1">My Applications</h1>
+            <p class="mb-0">Track your job applications and their status</p>
+          </div>
+        </div>
       </div>
 
-      <div *ngIf="!loading && applications.length === 0" class="text-center">
-        <div class="card">
-          <div class="card-body">
-            <p class="text-gray-600 mb-4">You haven't submitted any applications yet.</p>
+      <div *ngIf="loading" class="row">
+        <div class="col-12">
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary"></div>
+            <p class="mt-3 text-muted">Loading applications...</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && applications.length === 0" class="row">
+        <div class="col-12">
+          <div class="text-center py-5">
+            <h3>No Applications Yet</h3>
+            <p class="text-muted">You haven't submitted any applications yet.</p>
             <a routerLink="/jobs" class="btn btn-primary">Browse Jobs</a>
           </div>
         </div>
       </div>
 
-      <div *ngIf="!loading && applications.length > 0" class="space-y-4">
-        <div *ngFor="let application of applications" class="card application-card">
-          <div class="card-body">
-            <div class="flex justify-between items-start mb-3">
-              <div>
-                <h3 class="job-title">{{ application.jobTitle }}</h3>
-                <p class="company-name">{{ application.companyName }}</p>
+      <div *ngIf="!loading && applications.length > 0" class="row">
+        <div class="col-lg-4 col-md-6 mb-3" *ngFor="let application of applications; trackBy: trackByApplicationId">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h5 class="card-title mb-1">{{ application.jobTitle }}</h5>
+                  <h6 class="card-subtitle text-primary mb-2">{{ application.companyName }}</h6>
+                </div>
+                <span class="badge" [ngClass]="getStatusClass(application.status)">
+                  {{ getStatusDisplay(application.status) }}
+                </span>
               </div>
-              <span class="badge" [ngClass]="getStatusClass(application.status)">
-                {{ getStatusDisplay(application.status) }}
-              </span>
+
+              <div class="row text-center small text-muted mb-3">
+                <div class="col-6">
+                  <strong>Applied</strong><br>
+                  {{ application.submittedAt | date:'MMM d, y' }}
+                </div>
+                <div class="col-6" *ngIf="application.updatedAt">
+                  <strong>Updated</strong><br>
+                  {{ application.updatedAt | date:'MMM d, y' }}
+                </div>
+              </div>
+
+              <a [routerLink]="['/jobs', application.jobPostingId]" class="btn btn-primary w-100">
+                View Job Details
+              </a>
             </div>
-            
-            <div class="application-meta">
-              <div class="meta-row">
-                <strong>Applied:</strong> {{ application.submittedAt | date:'medium' }}
-              </div>
-              <div *ngIf="application.updatedAt" class="meta-row">
-                <strong>Last Updated:</strong> {{ application.updatedAt | date:'medium' }}
-              </div>
-            </div>
-          </div>
-          
-          <div class="card-footer">
-            <a [routerLink]="['/jobs', application.jobPostingId]" class="btn btn-outline btn-sm">
-              View Job Details
-            </a>
           </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
-    .application-list-container {
-      max-width: 800px;
-      margin: 0 auto;
+    .card {
+      border: 1px solid #e0e0e0;
     }
-    
-    .application-card {
-      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    
-    .application-card:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-    
-    .job-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: #1f2937;
-      margin-bottom: 0.25rem;
-    }
-    
-    .company-name {
-      font-weight: 500;
-      color: #2563eb;
-    }
-    
-    .application-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      font-size: 0.875rem;
-      color: #6b7280;
-    }
-    
-    .meta-row {
-      display: flex;
-      gap: 0.5rem;
-    }
-    
-    .space-y-4 > * + * {
-      margin-top: 1rem;
-    }
-    
-    .text-gray-600 { color: #4b5563; }
   `]
 })
 export class ApplicationListComponent implements OnInit {
@@ -131,22 +104,26 @@ export class ApplicationListComponent implements OnInit {
   getStatusClass(status: string): string {
     switch (status) {
       case 'Submitted':
-        return 'badge-primary';
+        return 'bg-primary';
       case 'ApprovedForInterview':
-        return 'badge-success';
+        return 'bg-success';
       case 'Rejected':
-        return 'badge-danger';
+        return 'bg-danger';
       default:
-        return 'badge-primary';
+        return 'bg-primary';
     }
   }
 
   getStatusDisplay(status: string): string {
     switch (status) {
       case 'ApprovedForInterview':
-        return 'Approved for Interview';
+        return 'Approved';
       default:
         return status;
     }
+  }
+
+  trackByApplicationId(index: number, application: Application): number {
+    return application.id;
   }
 }

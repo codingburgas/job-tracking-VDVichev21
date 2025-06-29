@@ -238,19 +238,21 @@ export class JobListComponent implements OnInit {
 
   testApiConnection(): void {
     console.log('🔍 Testing API connection...');
-    fetch('http://localhost:5000/api/jobpostings')
-        .then(response => {
-          console.log('🌐 API Response Status:', response.status);
-          return response.json();
-        })
-        .then(data => {
-          console.log('📊 API Response Data:', data);
-          alert('✅ API Connection Successful! Check console for details.');
-        })
-        .catch(error => {
-          console.error('❌ API Connection Failed:', error);
-          alert('❌ API Connection Failed! Check console for details.');
-        });
+    for(let i = 0; i < this.jobs.length; i++) {
+      fetch('http://localhost:5000/api/jobpostings${i}')
+    .then(response => {
+        console.log('🌐 API Response Status:', response.status);
+        return response.json();
+      })
+          .then(data => {
+            console.log('📊 API Response Data:', data);
+            alert('✅ API Connection Successful! Check console for details.');
+          })
+          .catch(error => {
+            console.error('❌ API Connection Failed:', error);
+            alert('❌ API Connection Failed! Check console for details.');
+          });
+    }
   }
 
   filterJobs(): void {

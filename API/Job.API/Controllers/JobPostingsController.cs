@@ -24,25 +24,31 @@ public class JobPostingsController : ControllerBase
     {
         try
         {
-            _logger.LogInformation("Getting job postings. User role: {Role}", User.IsInRole("Admin") ? "Admin" : "User");
+            _logger.LogInformation("Getting job postings. User authenticated: {IsAuthenticated}", User.Identity?.IsAuthenticated ?? false);
             
-            if (User.IsInRole("Admin"))
+            if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin User"))
             {
+                _logger.LogInformation("Returning all job postings for admin user");
                 var allJobPostings = await _jobPostingService.GetAllJobPostingsAsync();
-                _logger.LogInformation("Returning {Count} job postings for admin", allJobPostings.Count());
+                _logger.LogInformation("Successfully retrieved {Count} job postings for admin", allJobPostings.Count());
                 return Ok(allJobPostings);
             }
             else
             {
+                _logger.LogInformation("Returning active job postings for non-admin user");
                 var activeJobPostings = await _jobPostingService.GetActiveJobPostingsAsync();
-                _logger.LogInformation("Returning {Count} active job postings for user", activeJobPostings.Count());
+                _logger.LogInformation("Successfully retrieved {Count} active job postings", activeJobPostings.Count());
                 return Ok(activeJobPostings);
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error getting job postings");
-            return StatusCode(500, "Internal server error");
+            _logger.LogError(ex, "Error occurred while getting job postings");
+            return StatusCode(500, new { 
+                message = "An error occurred while retrieving job postings", 
+                error = ex.Message,
+                stackTrace = ex.StackTrace
+            });
         }
     }
 
@@ -59,12 +65,16 @@ public class JobPostingsController : ControllerBase
                 return NotFound();
             }
 
+            _logger.LogInformation("Successfully retrieved job posting with ID: {Id}", id);
             return Ok(jobPosting);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error getting job posting with ID: {Id}", id);
-            return StatusCode(500, "Internal server error");
+            return StatusCode(500, new { 
+                message = "An error occurred while retrieving the job posting", 
+                error = ex.Message 
+            });
         }
     }
 
@@ -86,7 +96,10 @@ public class JobPostingsController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error creating job posting: {@JobPosting}", createDto);
-            return StatusCode(500, "Internal server error");
+            return StatusCode(500, new { 
+                message = "An error occurred while creating the job posting", 
+                error = ex.Message 
+            });
         }
     }
 
@@ -110,7 +123,10 @@ public class JobPostingsController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error updating job posting with ID: {Id}", id);
-            return StatusCode(500, "Internal server error");
+            return StatusCode(500, new { 
+                message = "An error occurred while updating the job posting", 
+                error = ex.Message 
+            });
         }
     }
 
@@ -134,7 +150,10 @@ public class JobPostingsController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error deleting job posting with ID: {Id}", id);
-            return StatusCode(500, "Internal server error");
+            return StatusCode(500, new { 
+                message = "An error occurred while deleting the job posting", 
+                error = ex.Message 
+            });
         }
     }
 }

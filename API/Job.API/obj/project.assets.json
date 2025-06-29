@@ -3385,6 +3385,7 @@
     "net8.0": [
       "Job.Application >= 1.0.0",
       "Job.DataAccess >= 1.0.0",
+      "Job.Domain >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.0",
@@ -3421,6 +3422,9 @@
             },
             "C:\\Users\\vicho\\RiderProject\\job-tracking-VDVichev21\\API\\Job.DataAccess\\Job.DataAccess.csproj": {
               "projectPath": "C:\\Users\\vicho\\RiderProject\\job-tracking-VDVichev21\\API\\Job.DataAccess\\Job.DataAccess.csproj"
+            },
+            "C:\\Users\\vicho\\RiderProject\\job-tracking-VDVichev21\\API\\Job.Domain\\Job.Domain.csproj": {
+              "projectPath": "C:\\Users\\vicho\\RiderProject\\job-tracking-VDVichev21\\API\\Job.Domain\\Job.Domain.csproj"
             }
           }
         }
