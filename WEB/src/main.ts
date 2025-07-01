@@ -1,34 +1,28 @@
-import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { routes } from './app.routes';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
-  template: '<router-outlet></router-outlet>'
-})
-export class App {}
+// Import Zone.js
+import 'zone.js';
 
-bootstrapApplication(App, {
+import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';
+import { AuthInterceptor } from './app/interceptors/auth.interceptor';
+
+console.log('Starting Angular application...');
+
+bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([
-      (req, next) => {
-        const token = localStorage.getItem('token');
-        if (token) {
-          const authReq = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${token}`)
-          });
-          return next(authReq);
-        }
-        return next(req);
-      }
-    ]))
+    importProvidersFrom(HttpClientModule, FormsModule, ReactiveFormsModule),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ]
+}).catch(err => {
+  console.error('Error starting application:', err);
 });
