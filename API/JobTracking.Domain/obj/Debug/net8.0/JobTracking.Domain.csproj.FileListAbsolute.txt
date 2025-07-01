@@ -1,0 +1,11 @@
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\bin\Debug\net8.0\JobTracking.Domain.deps.json
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\bin\Debug\net8.0\JobTracking.Domain.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\bin\Debug\net8.0\JobTracking.Domain.pdb
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\JobTracking.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\JobTracking.Domain.AssemblyInfoInputs.cache
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\JobTracking.Domain.AssemblyInfo.cs
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\JobTracking.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\JobTracking.Domain.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\refint\JobTracking.Domain.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\JobTracking.Domain.pdb
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.Domain\obj\Debug\net8.0\ref\JobTracking.Domain.dll

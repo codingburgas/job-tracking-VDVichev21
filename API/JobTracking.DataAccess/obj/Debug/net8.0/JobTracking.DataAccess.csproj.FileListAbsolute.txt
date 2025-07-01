@@ -1,0 +1,17 @@
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\bin\Debug\net8.0\JobTracking.DataAccess.deps.json
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\bin\Debug\net8.0\JobTracking.DataAccess.runtimeconfig.json
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\bin\Debug\net8.0\JobTracking.DataAccess.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\bin\Debug\net8.0\JobTracking.DataAccess.pdb
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\bin\Debug\net8.0\JobTracking.Domain.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\bin\Debug\net8.0\JobTracking.Domain.pdb
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.csproj.AssemblyReference.cache
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.AssemblyInfoInputs.cache
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.AssemblyInfo.cs
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTrack.FCB8C200.Up2Date
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\refint\JobTracking.DataAccess.dll
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.pdb
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\JobTracking.DataAccess.genruntimeconfig.cache
+C:\Users\Vicho Vichev\OneDrive - ПГКПИ - Бургас\Documents\ПГКПИ\projects\project\API\JobTracking.DataAccess\obj\Debug\net8.0\ref\JobTracking.DataAccess.dll
