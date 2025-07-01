@@ -12,5 +12,5 @@ public class JobPostingDto
     public JobStatus Status { get; set; }
     public int PostedByUserId { get; set; }
     public string PostedByUserName { get; set; } = string.Empty;
-    public bool CanEdit { get; set; } = false; // Indicates if current user can edit this job
+    public bool CanEdit { get; set; } = false;
 }

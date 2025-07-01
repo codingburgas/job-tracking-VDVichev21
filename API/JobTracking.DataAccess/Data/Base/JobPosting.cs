@@ -10,7 +10,7 @@ public class JobPosting
     public string Description { get; set; } = string.Empty;
     public DateTime DatePosted { get; set; }
     public JobStatus Status { get; set; } = JobStatus.Active;
-    public int PostedByUserId { get; set; } // Track who posted the job
+    public int PostedByUserId { get; set; } 
 
     public User PostedByUser { get; set; } = null!;
     public ICollection<Application> Applications { get; set; } = new List<Application>();

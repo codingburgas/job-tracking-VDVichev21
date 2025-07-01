@@ -48,7 +48,5 @@ public class JobTrackingDbContext : DbContext
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // NO MORE SEEDED DATA - Clean database
-        Console.WriteLine("✅ Database configuration complete - No seeded data");
     }
 }

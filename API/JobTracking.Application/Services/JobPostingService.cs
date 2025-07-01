@@ -117,7 +117,6 @@ public class JobPostingService
         _context.JobPostings.Add(jobPosting);
         await _context.SaveChangesAsync();
 
-        // Load the user information
         var user = await _context.Users.FindAsync(userId);
 
         return new JobPostingDto

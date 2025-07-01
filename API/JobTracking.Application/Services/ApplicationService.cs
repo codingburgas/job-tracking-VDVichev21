@@ -26,7 +26,6 @@ public class ApplicationService
         var jobPosting = await _context.JobPostings.FindAsync(jobPostingId);
         if (jobPosting == null || jobPosting.Status != JobStatus.Active) return false;
 
-        // Don't allow users to apply to their own jobs
         if (jobPosting.PostedByUserId == userId) return false;
 
         var application = new DataAccess.Data.Base.Application
@@ -37,7 +36,6 @@ public class ApplicationService
             DateApplied = DateTime.UtcNow
         };
 
-        // Handle file upload if provided
         if (resumeFile != null)
         {
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads", "resumes");

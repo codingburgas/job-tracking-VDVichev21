@@ -19,7 +19,6 @@ import { AuthService } from '../../services/auth.service';
             <div class="alert alert-info" *ngIf="!errorMessage && !isLoading">
               <h4>Welcome to Job Tracker!</h4>
               <p>Please login with your account or <a routerLink="/register">create a new account</a> to get started.</p>
-              <small>No demo accounts available - you'll need to register first!</small>
             </div>
 
             <div class="alert alert-danger" *ngIf="errorMessage">
