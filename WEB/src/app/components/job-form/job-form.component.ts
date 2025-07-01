@@ -140,13 +140,8 @@ export class JobFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log('🔄 JobFormComponent initialized');
-        console.log('👤 User authenticated:', this.authService.isAuthenticated());
-        console.log('🎫 Token exists:', !!this.authService.getToken());
-
-        // Check authentication first
+        
         if (!this.authService.isAuthenticated()) {
-            console.log('❌ User not authenticated, redirecting to login');
             this.router.navigate(['/login']);
             return;
         }
@@ -161,10 +156,8 @@ export class JobFormComponent implements OnInit {
 
     loadJob(): void {
         if (this.jobId) {
-            console.log('🔄 Loading job for editing:', this.jobId);
             this.jobService.getJobPosting(this.jobId).subscribe({
                 next: (job) => {
-                    console.log('✅ Job loaded for editing:', job);
                     this.jobForm.patchValue({
                         title: job.title,
                         companyName: job.companyName,
@@ -172,7 +165,6 @@ export class JobFormComponent implements OnInit {
                     });
                 },
                 error: (error) => {
-                    console.error('❌ Error loading job:', error);
                     this.errorMessage = 'Failed to load job details';
                     this.lastError = JSON.stringify(error);
                 }
@@ -181,16 +173,10 @@ export class JobFormComponent implements OnInit {
     }
 
     onSubmit(): void {
-        console.log('🔄 Form submission started');
-        console.log('📝 Form valid:', this.jobForm.valid);
-        console.log('📝 Form values:', this.jobForm.value);
-        console.log('👤 User authenticated:', this.authService.isAuthenticated());
+      
 
         const token = this.authService.getToken();
-        console.log('🎫 Token exists:', !!token);
-        if (token) {
-            console.log('🎫 Token preview:', token.substring(0, 20) + '...');
-        }
+        
 
         if (!this.authService.isAuthenticated()) {
             this.errorMessage = 'You must be logged in to post jobs';
@@ -205,13 +191,10 @@ export class JobFormComponent implements OnInit {
             this.lastError = '';
 
             const formData = this.jobForm.value;
-            console.log('📤 Sending job data:', formData);
 
             if (this.isEditing && this.jobId) {
-                console.log('🔄 Updating existing job:', this.jobId);
                 this.jobService.updateJobPosting(this.jobId, formData).subscribe({
                     next: () => {
-                        console.log('✅ Job updated successfully');
                         this.successMessage = 'Job updated successfully! Redirecting...';
                         this.isLoading = false;
                         setTimeout(() => {
@@ -219,38 +202,29 @@ export class JobFormComponent implements OnInit {
                         }, 2000);
                     },
                     error: (error) => {
-                        console.error('❌ Error updating job:', error);
                         this.handleError(error);
                     }
                 });
             } else {
-                console.log('🔄 Creating new job');
                 this.jobService.createJobPosting(formData).subscribe({
                     next: (response) => {
-                        console.log('✅ Job created successfully:', response);
                         this.successMessage = 'Job posted successfully! You can now see it in the Browse Jobs section. Redirecting...';
                         this.isLoading = false;
 
-                        // Clear the form
                         this.jobForm.reset();
 
-                        // Wait a bit longer to show the success message, then redirect to main page
                         setTimeout(() => {
-                            // Navigate to the main jobs page to see the new job
                             this.router.navigate(['/']);
                         }, 3000);
                     },
                     error: (error) => {
-                        console.error('❌ Error creating job:', error);
                         this.handleError(error);
                     }
                 });
             }
         } else {
-            console.log('❌ Form is invalid');
             this.errorMessage = 'Please fill in all required fields';
 
-            // Mark all fields as touched to show validation errors
             Object.keys(this.jobForm.controls).forEach(key => {
                 this.jobForm.get(key)?.markAsTouched();
             });
@@ -261,18 +235,11 @@ export class JobFormComponent implements OnInit {
         this.isLoading = false;
         this.lastError = JSON.stringify(error);
 
-        console.log('🔍 Error details:', error);
-        console.log('🔍 Error status:', error.status);
-        console.log('🔍 Error message:', error.message);
 
         if (error.status === 401 || error.status === 403) {
             this.errorMessage = 'Your session has expired. Please login again.';
-            console.log('🔄 Session expired, clearing auth and redirecting to login');
-
-            // Clear authentication and redirect
             this.authService.logout();
 
-            // Wait a moment then redirect
             setTimeout(() => {
                 this.router.navigate(['/login']);
             }, 2000);

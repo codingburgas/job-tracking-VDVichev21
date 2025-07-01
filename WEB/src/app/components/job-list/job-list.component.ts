@@ -257,12 +257,10 @@ export class JobListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('🔄 JobListComponent initialized');
     this.loadJobs();
   }
 
   loadJobs(): void {
-    console.log('🔄 Loading jobs...');
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -270,23 +268,15 @@ export class JobListComponent implements OnInit {
       next: (jobs) => {
         this.jobs = jobs;
         this.isLoading = false;
-        console.log('✅ Loaded jobs:', jobs.length);
-        console.log('📋 Jobs data:', jobs);
-
-        if (jobs.length === 0) {
-          console.log('⚠️ No jobs found in the system');
-        }
       },
       error: (error) => {
         this.errorMessage = 'Failed to load jobs';
         this.isLoading = false;
-        console.error('❌ Error loading jobs:', error);
       }
     });
   }
 
   refreshJobs(): void {
-    console.log('🔄 Refreshing jobs...');
     this.loadJobs();
   }
 
@@ -343,7 +333,7 @@ export class JobListComponent implements OnInit {
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) { // 5MB
+    if (file.size > 5 * 1024 * 1024) { 
       this.fileError = 'File size cannot exceed 5MB';
       return;
     }
